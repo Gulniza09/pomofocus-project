@@ -1,0 +1,50 @@
+.time_content {
+	background-color: rgba(255, 255, 255, 0.1);
+	padding: 20px 0px 30px;
+	border-radius: 6px;
+	margin-bottom: 20px;
+	text-align: center;
+	width: 480px;
+	height: 300px;
+	margin: 0 auto;
+	margin-top: 50px;
+	padding-bottom: 16px;
+	cursor: pointer;
+}
+
+
+.task_name {
+	display: flex;
+	justify-content: space-between;
+	color: white;
+	align-items: center;
+	border-bottom: 2px solid white;
+}
+.task_name img {
+	height: 16px;
+}
+
+.add_tasks_input {
+	width: 100%;
+	height: 60px;
+	cursor: pointer;
+	margin-top: 30px;
+	text-align: center;
+	color: antiquewhite;
+	font-size: 22px;
+	border: 2px dashed rgba(255, 255, 255, 0.4);
+	border-radius: 4px;
+	background-color: rgba(0, 0, 0, 0.1);
+	outline: none;
+	padding: 5px;
+}
+.add_tasks_input::placeholder {
+	color: #fff;
+}
+.time_focus{
+	margin-top: 30px;
+
+}
+.time_focus p{
+	color: white;
+}

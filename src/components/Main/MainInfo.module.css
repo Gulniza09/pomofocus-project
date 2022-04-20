@@ -1,0 +1,31 @@
+.MainInfo {
+    margin-top: 30px;
+	color: hsl(357, 50%, 22%);
+    height: 1100px;
+}
+.MainInfo h1 {
+	padding: 0 12px;
+}
+.questions hr {
+	height: 6px;
+	width: 34px;
+	background-color: #f05b56;
+}
+.questions i {
+	color: rgb(217 85 80);
+	font-size: 18px;
+}
+.questions h2 {
+	margin-top: 1.8rem;
+	margin-bottom: 0em;
+	padding-bottom: 10px;
+}
+.questions p {
+	line-height: 1.6em;
+	margin-top: 15px;
+}
+.questions ul,
+ol {
+	padding: 0 0 0 15px;
+	margin-top: 15px;
+}
