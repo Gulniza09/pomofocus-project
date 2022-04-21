@@ -1,0 +1,23 @@
+.Report_logo img {
+	position: absolute;
+	top: 20px;
+	right: 24px;
+	cursor: pointer;
+	width: 17px;
+	opacity: 0.3;
+	z-index: 2147483647;
+}
+.modal_content {
+	padding: 20px;
+	border-radius: 12px;
+	background-color: #e3cfcf;
+	max-width: 600px;
+	width: 620px;
+	margin: auto;
+	height: 602px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+/* From uiverse.io by @Jay-9527 */
+/* The switch - the box around the slider */

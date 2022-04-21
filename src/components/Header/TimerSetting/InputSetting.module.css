@@ -1,0 +1,26 @@
+.add_time_detail {
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1px solid rgba(182, 165, 166, 0.2);
+	padding: 20px 0px;
+}
+.add_time_input {
+	width: 98px;
+}
+.add_time_detail label {
+	font-size: 14px;
+	color: rgb(85, 85, 85);
+	font-weight: bold;
+	margin-bottom: 4px;
+}
+.add_time_detail input {
+	border-radius: 4px;
+	background-color: rgb(239, 239, 239);
+	font-size: 16px;
+	padding: 10px;
+	box-shadow: none;
+	border: none;
+	color: rgb(85, 85, 85);
+	width: 100%;
+	box-sizing: border-box;
+}
