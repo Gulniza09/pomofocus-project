@@ -1,13 +1,10 @@
-.background {
-	width: 100%;
-	background-color: rgb(217, 85, 80);
-	min-height: 680px;
+.startTimerBtn {
+   width: 100%;
+   background-color: aqua;
+   min-height: 680px;
 }
-.time_content_body {
-	width: 480px;
-	margin: 0 auto;
-}
-.text_info {
-	width: 620px;
-	margin: 0 auto;
+.isActive {
+   width: 100%;
+   background-color: green;
+   min-height: 680px;
 }
