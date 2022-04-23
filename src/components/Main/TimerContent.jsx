@@ -1,7 +1,9 @@
+/* eslint-disable import/no-duplicates */
 /* eslint-disable no-alert */
-import React, { useId } from 'react'
+import React, { useContext, useId } from 'react'
 import Button from '../UI/Button'
 import styled from 'styled-components'
+import { SettingProvider } from '../../context/SettingContext'
 
 const TimerContent = ({
    switchContent,
@@ -10,7 +12,21 @@ const TimerContent = ({
    seconds,
    ticking,
 }) => {
-   const options = ['Pomodoro', 'Short Break', 'Long Break']
+   const { setBackground } = useContext(SettingProvider)
+   const options = [
+      {
+         title: 'Pomodoro',
+         background: 'rgb(217, 85, 80)',
+      },
+      {
+         title: 'Short Break',
+         background: 'rgb(76, 145, 149)',
+      },
+      {
+         title: 'Long Break',
+         background: 'rgb(69, 124, 163)',
+      },
+   ]
    const id = useId()
    return (
       <>
@@ -19,9 +35,12 @@ const TimerContent = ({
                return (
                   <Button
                      key={`${id + index}}`}
-                     onClick={() => switchContent(index)}
+                     onClick={() => {
+                        switchContent(index)
+                        setBackground(option.background)
+                     }}
                   >
-                     {option}
+                     {option.title}
                   </Button>
                )
             })}
@@ -58,10 +77,12 @@ const TimerContent = ({
       </>
    )
 }
+
 const WrapperBtns = styled.div`
    display: flex;
    justify-content: center;
    align-items: center;
+
    Button {
       font-size: 16px;
       border: none;
