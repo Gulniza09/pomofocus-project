@@ -1,9 +1,21 @@
 /* eslint-disable react/jsx-no-undef */
 import InputSetting from './InputSetting'
-
 import styled from 'styled-components'
+import { useContext } from 'react'
+import { SettingProvider } from '../../context/SettingContext'
 
 const TimerSetting = ({ setSettingTimerShow }) => {
+   const { setSettingTime, settingTime } = useContext(SettingProvider)
+   const inputChangeHandler = (e) => {
+      const { name, value } = e.target
+      setSettingTime((prevState) => {
+         return {
+            ...prevState,
+            [name]: value,
+         }
+      })
+   }
+
    return (
       <TimerSettingContent>
          <SettingHeader>
@@ -16,7 +28,11 @@ const TimerSetting = ({ setSettingTimerShow }) => {
             </button>
          </SettingHeader>
 
-         <InputSetting />
+         <InputSetting
+            TimerSetting={TimerSetting}
+            settingTime={settingTime}
+            inputChangeHandler={inputChangeHandler}
+         />
          <AutoQuetions>
             <h3>Auto start Breaks?</h3>
             <CheckBoxSwitch>
@@ -35,7 +51,7 @@ const TimerSetting = ({ setSettingTimerShow }) => {
             <h3>Long Break interval</h3>
             <input type="number" />
          </TimeInterval>
-         <ButtonOk>OK</ButtonOk>
+         <ButtonOk onClick={() => setSettingTimerShow(false)}>OK</ButtonOk>
       </TimerSettingContent>
    )
 }

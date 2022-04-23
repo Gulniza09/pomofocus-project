@@ -1,14 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
+import { SettingProvider } from '../../context/SettingContext'
 
 const InputSetting = () => {
-   const [settingTime, setSettingTime] = useState({
-      pomodoro: 0.2,
-      shortBreak: 0.3,
-      longBreak: 1,
-      active: 'pomodoro',
-   })
+   const { settingTime, setSettingTime } = useContext(SettingProvider)
 
    const inputChangeHandler = (e) => {
       const { name, value } = e.target

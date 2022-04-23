@@ -1,23 +1,32 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-alert */
 /* eslint-disable consistent-return */
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import Input from '../UI/Input'
 import TimerContent from './TimerContent'
 import styled from 'styled-components'
+import { SettingProvider } from '../../context/SettingContext'
 
 const MainContent = () => {
-   const [pomodoro, setPomodoro] = useState(1)
-   const [shortBreak, setShortBreak] = useState(5)
-   const [longBreak, setLongBreak] = useState(10)
+   const { settingTime, setSettingTime } = useContext(SettingProvider)
+   const [pomodoro, setPomodoro] = useState(Number(settingTime.pomodoro))
+   const [shortBreak, setShortBreak] = useState(Number(settingTime.shortBreak))
+   const [longBreak, setLongBreak] = useState(Number(settingTime.longBreak))
    const [content, setContent] = useState(0)
    const [minutes, setMinutes] = useState(0)
    const [seconds, setSeconds] = useState(0)
    const [ticking, setTicking] = useState(true)
 
+   useEffect(() => {
+      setPomodoro(settingTime.pomodoro)
+      setLongBreak(settingTime.longBreak)
+      setShortBreak(settingTime.shortBreak)
+   }, [settingTime])
+
    const switchContent = (index) => {
       setContent(index)
    }
+   
    const getTickingTime = useCallback(() => {
       const timeStage = {
          0: pomodoro,
@@ -36,8 +45,6 @@ const MainContent = () => {
    useEffect(() => {
       getTickingTime()
    }, [getTickingTime])
-
-
 
    useEffect(() => {
       if (ticking) {
