@@ -1,9 +1,13 @@
+/* eslint-disable react/jsx-no-useless-fragment */
+/* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable import/no-duplicates */
 /* eslint-disable no-alert */
 import React, { useContext, useId } from 'react'
 import Button from '../UI/Button'
 import styled from 'styled-components'
 import { SettingProvider } from '../../context/SettingContext'
+import useSound from 'use-sound'
+import audioStart from '../../assets/audio/startAudio.mp3'
 
 const TimerContent = ({
    switchContent,
@@ -13,6 +17,7 @@ const TimerContent = ({
    ticking,
 }) => {
    const { setBackground } = useContext(SettingProvider)
+   const [play] = useSound(audioStart)
    const options = [
       {
          title: 'Pomodoro',
@@ -28,6 +33,10 @@ const TimerContent = ({
       },
    ]
    const id = useId()
+   const startTimer = () => {
+      setTicking((prevState) => !prevState)
+      play()
+   }
    return (
       <>
          <WrapperBtns>
@@ -50,10 +59,7 @@ const TimerContent = ({
             {`${seconds % 60 > 9 ? seconds % 60 : `0${seconds % 60}`}`}
          </TimeTitle>
          <TimeToggle>
-            <Button
-               onClick={() => setTicking((prevState) => !prevState)}
-               className="time_start"
-            >
+            <Button onClick={startTimer} className="time_start">
                {ticking ? 'START' : 'STOP'}
             </Button>
             {ticking ? (

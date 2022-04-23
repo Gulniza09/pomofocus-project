@@ -6,6 +6,8 @@ import Input from '../UI/Input'
 import TimerContent from './TimerContent'
 import styled from 'styled-components'
 import { SettingProvider } from '../../context/SettingContext'
+import finishAudio from '../../assets/audio/finishAudio.mp3'
+import useSound from 'use-sound'
 
 const MainContent = () => {
    const { settingTime, setSettingTime } = useContext(SettingProvider)
@@ -26,7 +28,7 @@ const MainContent = () => {
    const switchContent = (index) => {
       setContent(index)
    }
-   
+   const [finishPlay] = useSound(finishAudio)
    const getTickingTime = useCallback(() => {
       const timeStage = {
          0: pomodoro,
@@ -53,7 +55,9 @@ const MainContent = () => {
       if (!ticking) {
          const timer = setInterval(() => {
             if (minutes === 0 && seconds === 0) {
-               alert('time up')
+               finishPlay()
+               setContent(1)
+               getTickingTime()
             } else if (seconds === 0) {
                setMinutes(minutes - 1)
                setSeconds(59)
