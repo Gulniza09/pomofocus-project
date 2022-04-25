@@ -8,7 +8,7 @@ import Input from '../UI/Input'
 import TimerContent from './TimerContent'
 import styled from 'styled-components'
 import { SettingProvider } from '../../context/SettingContext'
-import finishAudio from '../../assets/audio/asd.mp3'
+import finishAudio from '../../assets/audio/finishAudio.mp3'
 import useSound from 'use-sound'
 import { options } from '../../utils/constants/general'
 const MainContent = () => {
