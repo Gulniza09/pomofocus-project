@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-useless-fragment */
+/* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable import/no-duplicates */
 /* eslint-disable no-alert */
 import React, { useContext, useId } from 'react'
