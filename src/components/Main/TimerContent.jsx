@@ -6,9 +6,9 @@ import React, { useContext, useId } from 'react'
 import Button from '../UI/Button'
 import styled from 'styled-components'
 import { SettingProvider } from '../../context/SettingContext'
-import { options } from '../../utils/constants/general'
 import useSound from 'use-sound'
-import startStopPlay from '../../assets/audio/startStopPlay.mp3'
+import audioStart from '../../assets/audio/startAudio.mp3'
+import { options } from '../../utils/constants/general'
 
 const TimerContent = ({
    switchContent,
@@ -16,29 +16,31 @@ const TimerContent = ({
    minutes,
    seconds,
    ticking,
+   platform,
 }) => {
    const { setBackground } = useContext(SettingProvider)
-   const [startPlay] = useSound(startStopPlay)
+   const [play] = useSound(audioStart)
+   console.log(platform)
    const id = useId()
-
    const startTimer = () => {
       setTicking((prevState) => !prevState)
-      startPlay()
+      play()
    }
    return (
       <>
          <WrapperBtns>
             {options.map((option, index) => {
                return (
-                  <Button
+                  <ButtonStyled
                      key={`${id + index}}`}
                      onClick={() => {
                         switchContent(index)
                         setBackground(option.background)
                      }}
+                     isActive={index === platform}
                   >
                      {option.title}
-                  </Button>
+                  </ButtonStyled>
                )
             })}
          </WrapperBtns>
@@ -76,23 +78,24 @@ const WrapperBtns = styled.div`
    display: flex;
    justify-content: center;
    align-items: center;
+`
 
-   Button {
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-      background: none;
-      box-sizing: border-box;
-      color: white;
-      padding: 7px 6px;
-      margin: 5px;
-      border-radius: 4px;
-      &:hover {
-         background: rgba(153, 153, 153, 0.324);
-         opacity: 0.9;
-      }
+const ButtonStyled = styled.button`
+   font-size: 16px;
+   border: none;
+   cursor: pointer;
+   background: ${({ isActive }) => (isActive ? '#00000028' : 'none')};
+   box-sizing: border-box;
+   color: white;
+   padding: 7px 6px;
+   margin: 5px;
+   border-radius: 4px;
+   &:hover {
+      background: rgba(153, 153, 153, 0.324);
+      opacity: 0.9;
    }
 `
+
 const TimeTitle = styled.span`
    font-size: 120px;
    color: white;
