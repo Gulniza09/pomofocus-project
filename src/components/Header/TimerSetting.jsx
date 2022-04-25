@@ -3,9 +3,15 @@ import InputSetting from './InputSetting'
 import styled from 'styled-components'
 import { useContext } from 'react'
 import { SettingProvider } from '../../context/SettingContext'
-
 const TimerSetting = ({ setSettingTimerShow }) => {
-   const { setSettingTime, settingTime } = useContext(SettingProvider)
+   const {
+      setSettingTime,
+      settingTime,
+      autoStartBreaks,
+      setAutoStartBreaks,
+      autoStartPomo,
+      setAutoStartPomo,
+   } = useContext(SettingProvider)
    const inputChangeHandler = (e) => {
       const { name, value } = e.target
       setSettingTime((prevState) => {
@@ -15,7 +21,21 @@ const TimerSetting = ({ setSettingTimerShow }) => {
          }
       })
    }
-
+   const autoBreaksChangeHandler = (e) => {
+      setAutoStartBreaks(e.target.checked)
+   }
+   const autoPomoChangeHandler = (e) => {
+      setAutoStartPomo(e.target.checked)
+   }
+   const longBreakintervalChangeHandler = (e) => {
+      const { name, value } = e.target
+      setSettingTime((prevState) => {
+         return {
+            ...prevState,
+            [name]: value,
+         }
+      })
+   }
    return (
       <TimerSettingContent>
          <SettingHeader>
@@ -27,7 +47,6 @@ const TimerSetting = ({ setSettingTimerShow }) => {
                />
             </button>
          </SettingHeader>
-
          <InputSetting
             TimerSetting={TimerSetting}
             settingTime={settingTime}
@@ -36,26 +55,38 @@ const TimerSetting = ({ setSettingTimerShow }) => {
          <AutoQuetions>
             <h3>Auto start Breaks?</h3>
             <CheckBoxSwitch>
-               <input type="checkbox" />
+               <input
+                  type="checkbox"
+                  onChange={autoBreaksChangeHandler}
+                  checked={autoStartBreaks}
+               />
                <span className="slider"></span>
             </CheckBoxSwitch>
          </AutoQuetions>
          <AutoQuetions>
             <h3>Auto start Pomodoros?</h3>
             <CheckBoxSwitch>
-               <input type="checkbox" />
+               <input
+                  type="checkbox"
+                  onChange={autoPomoChangeHandler}
+                  checked={autoStartPomo}
+               />
                <span className="slider"></span>
             </CheckBoxSwitch>
          </AutoQuetions>
          <TimeInterval>
             <h3>Long Break interval</h3>
-            <input type="number" />
+            <input
+               type="number"
+               name="longBreakInterval"
+               value={settingTime.longBreakInterval}
+               onChange={longBreakintervalChangeHandler}
+            />
          </TimeInterval>
          <ButtonOk onClick={() => setSettingTimerShow(false)}>OK</ButtonOk>
       </TimerSettingContent>
    )
 }
-
 const TimerSettingContent = styled.div`
    padding: 20px;
    border-radius: 12px;
@@ -115,7 +146,6 @@ const CheckBoxSwitch = styled.label`
       transition: 0.4s;
       border-radius: 30px;
    }
-
    .slider:before {
       position: absolute;
       content: '';
@@ -127,20 +157,16 @@ const CheckBoxSwitch = styled.label`
       background-color: white;
       transition: 0.4s;
    }
-
    input:checked + .slider {
       background-color: rgb(0, 221, 80);
    }
-
    input:focus + .slider {
       box-shadow: 0 0 1px rgb(0, 221, 80);
    }
-
    input:checked + .slider:before {
       transform: translateX(1.5em);
    }
 `
-
 const TimeInterval = styled.div`
    display: flex;
    color: rgb(85, 85, 85);

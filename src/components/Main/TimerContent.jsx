@@ -6,8 +6,9 @@ import React, { useContext, useId } from 'react'
 import Button from '../UI/Button'
 import styled from 'styled-components'
 import { SettingProvider } from '../../context/SettingContext'
+import { options } from '../../utils/constants/general'
 import useSound from 'use-sound'
-import audioStart from '../../assets/audio/startAudio.mp3'
+import startStopPlay from '../../assets/audio/startStopPlay.mp3'
 
 const TimerContent = ({
    switchContent,
@@ -17,25 +18,12 @@ const TimerContent = ({
    ticking,
 }) => {
    const { setBackground } = useContext(SettingProvider)
-   const [play] = useSound(audioStart)
-   const options = [
-      {
-         title: 'Pomodoro',
-         background: 'rgb(217, 85, 80)',
-      },
-      {
-         title: 'Short Break',
-         background: 'rgb(76, 145, 149)',
-      },
-      {
-         title: 'Long Break',
-         background: 'rgb(69, 124, 163)',
-      },
-   ]
+   const [startPlay] = useSound(startStopPlay)
    const id = useId()
+
    const startTimer = () => {
       setTicking((prevState) => !prevState)
-      play()
+      startPlay()
    }
    return (
       <>
