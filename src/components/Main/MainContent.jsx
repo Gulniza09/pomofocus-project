@@ -1,3 +1,4 @@
+/* eslint-disable no-import-assign */
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable no-unused-vars */
@@ -22,15 +23,21 @@ const MainContent = () => {
       setPomodoroCount,
       ticking,
       setTicking,
+      autoStartPomo,
+      setAutoStartPomo,
+      autoStartBreaks,
+      setAutoStartBreaks,
    } = useContext(SettingProvider)
    const [longBreakIntervalCount, setLongBreakIntervalCount] = useState(1)
    const [minutes, setMinutes] = useState(0)
    const [seconds, setSeconds] = useState(0)
+   const [passedSeconds, setPassedSeconds] = useState(0)
    const { pomodoro, longBreak, shortBreak, longBreakInterval } = settingTime
    const switchContent = (index) => {
       setPlatform(index)
    }
    const [finishPlay] = useSound(finishAudio)
+
    const getTickingTime = useCallback(() => {
       const timeStage = {
          0: pomodoro,
@@ -45,9 +52,11 @@ const MainContent = () => {
       setMinutes(Number(minute))
       setSeconds(Number(second))
    }, [pomodoro, shortBreak, longBreak, platform])
+
    useEffect(() => {
       getTickingTime()
    }, [getTickingTime])
+
    const switchPlatformHandler = useCallback(() => {
       if (platform === 0) {
          setPomodoroCount((count) => count + 1)
@@ -62,6 +71,29 @@ const MainContent = () => {
          setPlatform(0)
       }
    }, [platform, longBreakInterval, longBreakIntervalCount])
+
+   const switchAutoStartTimer = useCallback(() => {
+      const currentAutoStart = {
+         0: autoStartPomo,
+         1: autoStartBreaks,
+         2: autoStartBreaks,
+      }
+      if (currentAutoStart[platform] && passedSeconds) {
+         setTicking(false)
+      }
+      if (!passedSeconds && !currentAutoStart[platform]) {
+         setTicking(true)
+      }
+   }, [platform, autoStartPomo, autoStartBreaks, passedSeconds])
+
+   useEffect(() => {
+      switchAutoStartTimer()
+   }, [switchAutoStartTimer])
+
+   useEffect(() => {
+      setPassedSeconds(0)
+   }, [platform])
+
    useEffect(() => {
       if (ticking) {
          return
@@ -77,14 +109,17 @@ const MainContent = () => {
             } else {
                setSeconds((second) => second - 1)
             }
+            setPassedSeconds((second) => second + 1)
          }, 1000)
          return () => clearInterval(timer)
       }
    }, [ticking, minutes, seconds, switchPlatformHandler])
+
    useEffect(() => {
       setBackground(options[platform].background)
       getTickingTime()
    }, [platform])
+
    return (
       <TimeContent>
          <TimerContent

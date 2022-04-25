@@ -27,6 +27,8 @@ const TimerSetting = ({ setSettingTimerShow }) => {
    const autoPomoChangeHandler = (e) => {
       setAutoStartPomo(e.target.checked)
    }
+
+   
    const longBreakintervalChangeHandler = (e) => {
       const { name, value } = e.target
       setSettingTime((prevState) => {
