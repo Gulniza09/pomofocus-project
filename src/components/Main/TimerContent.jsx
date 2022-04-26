@@ -20,7 +20,7 @@ const TimerContent = ({
 }) => {
    const { setBackground } = useContext(SettingProvider)
    const [play] = useSound(audioStart)
-   console.log(platform)
+  
    const id = useId()
    const startTimer = () => {
       setTicking((prevState) => !prevState)
@@ -84,7 +84,7 @@ const ButtonStyled = styled.button`
    font-size: 16px;
    border: none;
    cursor: pointer;
-   background: ${({ isActive }) => (isActive ? '#00000028' : 'none')};
+   background: ${({ isActive }) => (isActive ? '#00000028   ' : 'none')};
    box-sizing: border-box;
    color: white;
    padding: 7px 6px;
